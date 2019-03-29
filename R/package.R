@@ -5,4 +5,9 @@
 #'
 #' @docType package
 #' @name ccleanup
+#' @useDynLib ccleanup, .registration = TRUE
 NULL
+
+cleanup_test <- function() {
+  .Call(wrapper1)
+}
