@@ -1,0 +1,14 @@
+Package: ccleanup
+Title: Correct Resource Cleaup in C Code
+Version: 1.0.0
+Author: Gábor Csárdi
+Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
+Description: Macros that help you clean up resources in C code.
+License: MIT + file LICENSE
+LazyData: true
+URL: https://github.com/gaborcsardi/ccleanup
+BugReports: https://github.com/gaborcsardi/ccleanup/issues
+RoxygenNote: 6.1.1
+Suggests: 
+    testthat
+Encoding: UTF-8
