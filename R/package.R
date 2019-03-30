@@ -9,5 +9,9 @@
 NULL
 
 cleanup_test <- function() {
-  .Call(wrapper1)
+  .Call(xwrapper1)
+}
+
+cleanup_test2 <- function() {
+  .Call(xwrapper2)
 }
