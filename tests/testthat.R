@@ -1,4 +1,4 @@
 library(testthat)
-library(ccleanup)
+library(safecall)
 
-test_check("ccleanup")
+test_check("safecall")

@@ -4,8 +4,8 @@
 #' Correct Resource Cleaup in C Code
 #'
 #' @docType package
-#' @name ccleanup
-#' @useDynLib ccleanup, .registration = TRUE
+#' @name safecall
+#' @useDynLib safecall,.registration = TRUE
 NULL
 
 cleanup_test <- function() {
