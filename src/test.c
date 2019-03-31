@@ -28,7 +28,7 @@ SEXP testfunc1(SEXP fn, SEXP arg2) {
   int *fd = malloc(1);
   if (!fd) error("Out of memory");
   r_on_exit(cleanup_free, fd);
-  *fd = open(cfn, O_WRONLY | O_CREAT);
+  *fd = open(cfn, O_WRONLY | O_CREAT, 0644);
   if (*fd == -1) error("Cannot open file `%s`", cfn);
   r_on_exit(cleanup_file, fd);
   return ScalarInteger(42);
@@ -42,7 +42,7 @@ SEXP testfunc2(SEXP fn, SEXP arg2) {
   int *fd = malloc(1);
   if (!fd) error("Out of memory");
   r_on_exit(cleanup_free, fd);
-  *fd = open(cfn, O_WRONLY | O_CREAT);
+  *fd = open(cfn, O_WRONLY | O_CREAT, 0644);
   if (*fd == -1) error("Cannot open file `%s`", cfn);
   r_on_exit(cleanup_file, fd);
 
