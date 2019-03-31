@@ -35,3 +35,9 @@ test_that("on_exit without safecall", {
     .Call(testfunc1, tmp1, 1:10),
     "on_exit must be called from within")
 })
+
+test_that("cleanup stack full, cleanup proper", {
+  out <- capture_output(
+    expect_error(safecall(testfunc3, 200L), "Cleanup stack full"))
+  expect_equal(split_lines(out), "free!")
+})

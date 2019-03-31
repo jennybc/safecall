@@ -43,3 +43,19 @@ SEXP testfunc2(SEXP arg1, SEXP arg2) {
   return R_NilValue;
 }
 /* # nocov end */
+
+void clean_null(void *data) {
+  /* Do nothing */
+}
+
+SEXP testfunc3(SEXP num) {
+  int cnum = INTEGER(num)[0];
+  int i;
+  char *x = malloc(100);
+  on_exit(cleanup_free, x);
+  for (i = 0; i < cnum; i++) {
+    on_exit(clean_null, 0);
+  }
+
+  return ScalarInteger(i);
+}

@@ -258,10 +258,13 @@ void cleanup(void *old) {
 
 SEXP testfunc1(SEXP, SEXP);
 SEXP testfunc2(SEXP, SEXP);
+SEXP testfunc3(SEXP);
 
 static const R_CallMethodDef callMethods[]  = {
   { "testfunc1",  (DL_FUNC) testfunc1,  2 },
   { "testfunc2",  (DL_FUNC) testfunc2,  2 },
+  { "testfunc3",  (DL_FUNC) testfunc3,  1 },
+
   { "c_safecall", (DL_FUNC) c_safecall, 3 },
   { NULL, NULL, 0 }
 };
