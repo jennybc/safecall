@@ -9,7 +9,8 @@ LazyData: true
 URL: https://github.com/gaborcsardi/safecall
 BugReports: https://github.com/gaborcsardi/safecall/issues
 RoxygenNote: 6.1.1
-Suggests: 
+Suggests:
+    covr,
     testthat
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
