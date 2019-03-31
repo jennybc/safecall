@@ -10,13 +10,13 @@
 DEFINE_ON_EXIT
 
 void cleanup_free(void *data) {
-  REprintf("free!\n");
+  Rprintf("free!\n");
   free(data);
 }
 
 void cleanup_file(void *data) {
   int fd = *(int*)(data);
-  REprintf("close!\n");
+  Rprintf("close!\n");
   close(fd);
 }
 
@@ -25,7 +25,7 @@ SEXP testfunc1(SEXP arg1, SEXP arg2) {
   on_exit(cleanup_free, x);
   int *fd = malloc(1);
   on_exit(cleanup_free, fd);
-  *fd = open("foobar", O_WRONLY | O_CREAT);
+  *fd = open(CHAR(STRING_ELT(arg1, 0)), O_WRONLY | O_CREAT);
   on_exit(cleanup_file, fd);
   return ScalarInteger(42);
 }
@@ -35,9 +35,11 @@ SEXP testfunc2(SEXP arg1, SEXP arg2) {
   on_exit(cleanup_free, x);
   int *fd = malloc(1);
   on_exit(cleanup_free, fd);
-  *fd = open("foobar", O_WRONLY | O_CREAT);
+  *fd = open(CHAR(STRING_ELT(arg1, 0)), O_WRONLY | O_CREAT);
   on_exit(cleanup_file, fd);
 
   error("oops");
+ /* # nocov start */
   return R_NilValue;
 }
+/* # nocov end */
