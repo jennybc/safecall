@@ -53,6 +53,7 @@ void on_exit_reg(void (*func)(void*), void *data) {
   int next;
 
   acd = active_cleanup_data;
+  if (acd == NULL) error("on_exit must be called from within `safecall()`");
   size = acd->size;
   next = acd->next;
 
