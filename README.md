@@ -3,10 +3,17 @@
 
 > Correct Resource Cleaup in C Code
 
+<!-- badges: start -->
+
+![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
 [![Linux Build Status](https://travis-ci.org/gaborcsardi/safecall.svg?branch=master)](https://travis-ci.org/gaborcsardi/safecall)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/gaborcsardi/safecall?svg=true)](https://ci.appveyor.com/project/gaborcsardi/safecall)
 [![](http://www.r-pkg.org/badges/version/safecall)](http://www.r-pkg.org/pkg/safecall)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/safecall)](http://www.r-pkg.org/pkg/safecall)
+[![Coverage
+Status](https://img.shields.io/codecov/c/github/gaborcsardi/safecall/master.svg)](https://codecov.io/github/r-lib/pak?branch=master)
+
+<!-- badges: end -->
 
 Correct Resource Cleaup in C Code
 
