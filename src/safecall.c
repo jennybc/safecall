@@ -114,7 +114,6 @@ SEXP wrap_unpack(void *data) {
 
   if (num > 30) error("Too many arguments, max 30 is handled currently");
 
- /* # nocov start */
   switch (num) {
   case 0:
     r = fun();
@@ -240,7 +239,7 @@ SEXP wrap_unpack(void *data) {
 	    X(20),X(21),X(22),X(23),X(24),X(25),X(26),X(27),X(28),X(29));
     break;
   }
-  /* # nocov end */
+
 #undef X
 
   return r;

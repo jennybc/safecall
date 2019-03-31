@@ -42,3 +42,11 @@ test_that("cleanup stack full, cleanup proper", {
     expect_error(safecall(testfunc3, 200L), "Cleanup stack full"))
   expect_equal(split_lines(out), "free!")
 })
+
+test_that("various number of arguments", {
+  for (i in 0:30) {
+    nr <- get(paste0("argtest", i))
+    r <- do.call(safecall, c(list(nr), as.list(seq_len(i))))
+    expect_identical(r, sum(seq_len(i)))
+  }
+})
