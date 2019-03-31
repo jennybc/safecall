@@ -25,7 +25,7 @@ SEXP testfunc1(SEXP arg1, SEXP arg2) {
   on_exit(cleanup_free, x);
   int *fd = malloc(1);
   on_exit(cleanup_free, fd);
-  *fd = open("foobar", O_WRONLY);
+  *fd = open("foobar", O_WRONLY | O_CREAT);
   on_exit(cleanup_file, fd);
   return ScalarInteger(42);
 }
@@ -35,7 +35,7 @@ SEXP testfunc2(SEXP arg1, SEXP arg2) {
   on_exit(cleanup_free, x);
   int *fd = malloc(1);
   on_exit(cleanup_free, fd);
-  *fd = open("foobar", O_WRONLY);
+  *fd = open("foobar", O_WRONLY | O_CREAT);
   on_exit(cleanup_file, fd);
 
   error("oops");
