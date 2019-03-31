@@ -45,7 +45,7 @@ struct cleanup_data {
   int next;
 };
 
-static struct cleanup_data *active_cleanup_data = 0;
+static struct cleanup_data *active_cleanup_data = NULL;
 
 void on_exit_reg(void (*func)(void*), void *data) {
   static struct cleanup_data *acd;
@@ -87,7 +87,7 @@ SEXP c_safecall(SEXP addr, SEXP numpar, SEXP args) {
 
   active_cleanup_data = &new;
 
-  result = R_ExecWithCleanup(wrap_unpack, &argd, cleanup, 0);
+  result = R_ExecWithCleanup(wrap_unpack, &argd, cleanup, old);
 
   active_cleanup_data = old;
 
@@ -236,7 +236,7 @@ SEXP wrap_unpack(void *data) {
   return r;
 }
 
-void cleanup(void *data) {
+void cleanup(void *old) {
   static struct cleanup_data *acd;
   int size;
   int next;
@@ -249,4 +249,26 @@ void cleanup(void *data) {
     next--;
     acd->recs[next].func(acd->recs[next].data);
   }
+
+  active_cleanup_data = old;
+}
+
+/* --------------------------------------------------------------------- */
+
+SEXP testfunc1(SEXP, SEXP);
+SEXP testfunc2(SEXP, SEXP);
+
+static const R_CallMethodDef callMethods[]  = {
+  { "testfunc1",  (DL_FUNC) testfunc1,  2 },
+  { "testfunc2",  (DL_FUNC) testfunc2,  2 },
+  { "c_safecall", (DL_FUNC) c_safecall, 3 },
+  { NULL, NULL, 0 }
+};
+
+void R_init_safecall(DllInfo *dll) {
+  R_registerRoutines(dll, NULL, callMethods, NULL, NULL);
+  R_useDynamicSymbols(dll, FALSE);
+  R_forceSymbols(dll, TRUE);
+  R_RegisterCCallable("safecall", "on_exit", (DL_FUNC) on_exit_reg);
+  active_cleanup_data = NULL;
 }
