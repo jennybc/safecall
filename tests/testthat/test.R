@@ -50,3 +50,24 @@ test_that("various number of arguments", {
     expect_identical(r, sum(seq_len(i)))
   }
 })
+
+test_that("safecall + safecall", {
+  callback <- function() safecall(testfunc42)
+  out <- capture_output(
+    expect_error(safecall(testfunc4, environment()), "oopsie"))
+  expect_equal(split_lines(out), "free!")
+})
+
+test_that("safecall + .Call", {
+  callback <- function() .Call(testfunc42)
+  out <- capture_output(
+    expect_error(safecall(testfunc4, environment()), "oopsie"))
+  expect_equal(split_lines(out), "free!")
+})
+
+test_that(".Call + safecall", {
+  callback <- function() safecall(testfunc44)
+  out <- capture_output(
+    expect_error(safecall(testfunc43, environment()), "oopsie"))
+  expect_equal(split_lines(out), "free!")
+})

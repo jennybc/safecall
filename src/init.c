@@ -6,6 +6,11 @@ SEXP testfunc1(SEXP, SEXP);
 SEXP testfunc2(SEXP, SEXP);
 SEXP testfunc3(SEXP);
 
+SEXP testfunc4(SEXP);
+SEXP testfunc42();
+SEXP testfunc43(SEXP);
+SEXP testfunc44();
+
 SEXP argtest0();
 SEXP argtest1(SEXP);
 SEXP argtest2(SEXP,SEXP);
@@ -70,6 +75,11 @@ static const R_CallMethodDef callMethods[]  = {
   { "testfunc1",  (DL_FUNC) testfunc1,  2 },
   { "testfunc2",  (DL_FUNC) testfunc2,  2 },
   { "testfunc3",  (DL_FUNC) testfunc3,  1 },
+
+  { "testfunc4",  (DL_FUNC) testfunc4,  1 },
+  { "testfunc42", (DL_FUNC) testfunc42, 0 },
+  { "testfunc43", (DL_FUNC) testfunc43, 1 },
+  { "testfunc44", (DL_FUNC) testfunc44, 0 },
 
   { "argtest0",   (DL_FUNC) argtest0,   0 },
   { "argtest1",   (DL_FUNC) argtest1,   1 },
