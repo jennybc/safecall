@@ -1,5 +1,6 @@
 
 #include "safecall.h"
+#include <R_ext/Rdynload.h>
 
 SEXP testfunc1(SEXP, SEXP);
 SEXP testfunc2(SEXP, SEXP);
