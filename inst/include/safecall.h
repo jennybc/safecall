@@ -1,4 +1,6 @@
 
+#include <R_ext/Rdynload.h>
+
 #define DEFINE_R_ON_EXIT					\
   void r_on_exit(void (*func)(void*), void *data) {		\
     static void (*fun)(void (*func)(void*), void *data) = NULL;	\
