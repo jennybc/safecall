@@ -53,11 +53,20 @@ void on_exit_reg(void (*func)(void*), void *data) {
   int next;
 
   acd = active_cleanup_data;
-  if (acd == NULL) error("on_exit must be called from within `safecall()`");
+  if (acd == NULL) {
+    /* Need to clean this up..... */
+    func(data);
+    error("on_exit must be called from within `safecall()`");
+  }
   size = acd->size;
   next = acd->next;
 
-  if (next == size) error("Cleanup stack full");
+  if (next == size) {
+    /* Need to clean this up. The rest is in the stack, so it is cleaned
+       up automatically. */
+    func(data);
+    error("Cleanup stack full");
+  }
 
   acd->recs[next].func = func;
   acd->recs[next].data = data;

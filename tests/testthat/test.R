@@ -31,9 +31,10 @@ test_that("arg check", {
 test_that("on_exit without safecall", {
   tmp1 <- tempfile()
   on.exit(rimraf(tmp1), add = TRUE)
-  expect_error(
+  out <- capture_output(expect_error(
     .Call(testfunc1, tmp1, 1:10),
-    "on_exit must be called from within")
+    "on_exit must be called from within"))
+  expect_equal(split_lines(out), "free!")
 })
 
 test_that("cleanup stack full, cleanup proper", {

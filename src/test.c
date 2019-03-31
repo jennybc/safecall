@@ -57,5 +57,7 @@ SEXP testfunc3(SEXP num) {
     on_exit(clean_null, 0);
   }
 
+ /* # nocov start */
   return ScalarInteger(i);
 }
+ /* # nocov end */
