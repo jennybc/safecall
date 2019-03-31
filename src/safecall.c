@@ -98,51 +98,141 @@ SEXP wrap_unpack(void *data) {
   DL_FUNC fun = argd->fun;
   int num = INTEGER(argd->numpar)[0];
   SEXP args = argd->args;
-  SEXP retval;
+  SEXP r = R_NilValue;
 
 #define X(i) VECTOR_ELT(args, i)
 
-  if (num > 10) error("Too many arguments");
+  if (num > 30) error("Too many arguments, max 30 is handled currently");
 
   switch (num) {
   case 0:
-    retval = fun();
+    r = fun();
     break;
   case 1:
-    retval = fun(X(0));
+    r = fun(X(0));
     break;
   case 2:
-    retval = fun(X(0), X(1));
+    r = fun(X(0),X(1));
     break;
   case 3:
-    retval = fun(X(0), X(1), X(2));
+    r = fun(X(0),X(1),X(2));
     break;
   case 4:
-    retval = fun(X(0), X(1), X(2), X(3));
+    r = fun(X(0),X(1),X(2),X(3));
     break;
   case 5:
-    retval = fun(X(0), X(1), X(2), X(3), X(4));
+    r = fun(X(0),X(1),X(2),X(3),X(4));
     break;
   case 6:
-    retval = fun(X(0), X(1), X(2), X(3), X(4), X(5));
+    r = fun(X(0),X(1),X(2),X(3),X(4),X(5));
     break;
   case 7:
-    retval = fun(X(0), X(1), X(2), X(3), X(4), X(5), X(6));
+    r = fun(X(0),X(1),X(2),X(3),X(4),X(5),X(6));
     break;
   case 8:
-    retval = fun(X(0), X(1), X(2), X(3), X(4), X(5), X(6), X(7));
+    r = fun(X(0),X(1),X(2),X(3),X(4),X(5),X(6),X(7));
     break;
   case 9:
-    retval = fun(X(0), X(1), X(2), X(3), X(4), X(5), X(6), X(7), X(8));
+    r = fun(X(0),X(1),X(2),X(3),X(4),X(5),X(6),X(7),X(8));
     break;
   case 10:
-    retval = fun(X(0), X(1), X(2), X(3), X(4), X(5), X(6), X(7), X(8), X(9));
+    r = fun(X(0),X(1),X(2),X(3),X(4),X(5),X(6),X(7),X(8),X(9));
+    break;
+  case 11:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10));
+    break;
+  case 12:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11));
+    break;
+  case 13:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12));
+    break;
+  case 14:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13));
+    break;
+  case 15:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14));
+    break;
+  case 16:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15));
+    break;
+  case 17:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16));
+    break;
+  case 18:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16),X(17));
+    break;
+  case 19:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16),X(17),X(18));
+    break;
+  case 20:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16),X(17),X(18),X(19));
+    break;
+  case 21:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16),X(17),X(18),X(19),
+	    X(20));
+    break;
+  case 22:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16),X(17),X(18),X(19),
+	    X(20),X(21));
+    break;
+  case 23:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16),X(17),X(18),X(19),
+	    X(20),X(21),X(22));
+    break;
+  case 24:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16),X(17),X(18),X(19),
+	    X(20),X(21),X(22),X(23));
+    break;
+  case 25:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16),X(17),X(18),X(19),
+	    X(20),X(21),X(22),X(23),X(24));
+    break;
+  case 26:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16),X(17),X(18),X(19),
+	    X(20),X(21),X(22),X(23),X(24),X(25));
+    break;
+  case 27:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16),X(17),X(18),X(19),
+	    X(20),X(21),X(22),X(23),X(24),X(25),X(26));
+    break;
+  case 28:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16),X(17),X(18),X(19),
+	    X(20),X(21),X(22),X(23),X(24),X(25),X(26),X(27));
+    break;
+  case 29:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16),X(17),X(18),X(19),
+	    X(20),X(21),X(22),X(23),X(24),X(25),X(26),X(27),X(28));
+    break;
+  case 30:
+    r = fun(X( 0),X( 1),X( 2),X( 3),X( 4),X( 5),X( 6),X( 7),X( 8),X( 9),
+	    X(10),X(11),X(12),X(13),X(14),X(15),X(16),X(17),X(18),X(19),
+	    X(20),X(21),X(22),X(23),X(24),X(25),X(26),X(27),X(28),X(29));
     break;
   }
 
 #undef X
 
-  return retval;
+  return r;
 }
 
 void cleanup(void *data) {
