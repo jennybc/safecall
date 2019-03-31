@@ -55,8 +55,8 @@ You need to do the following steps:
    to call, without quotes.)
 4. In your C file include the `safecall.h` header. (The include path
    will be set up by R automatically if you used `LinkingTo` above.)
-5. "Call" the `DEFINE_ON_EXIT` macro in your code file. This will define
-   the `on_exit()` C function that you can call from your code to add
+5. "Call" the `DEFINE_R_ON_EXIT` macro in your code file. This will define
+   the `r_on_exit()` C function that you can call from your code to add
    exit handlers.
 
 ### Copying over safecall files
@@ -81,7 +81,7 @@ You need to do the following steps:
 
 ### Example
 
-Now you can call `on_exit()` to create exit handlers. It has two arguments,
+Now you can call `r_on_exit()` to create exit handlers. It has two arguments,
 the first one the exit handler function, that takes a `void*` pointer.
 The second one is the exit data, `void*`, which will be passed to the exit
 handler handler funcion on cleanup.
@@ -95,7 +95,7 @@ Here is an example on how to use safecall in C:
 ```c
 #include <safecall.h>
 
-DEFINE_ON_EXIT
+DEFINE_R_ON_EXIT
 
 void cleanup_free(void *data) {
   free(data);
@@ -110,14 +110,14 @@ SEXP myfun(SEXP fn) {
   const char *cfn = CHAR(STRING_ELT(fn, 0));
 
   char *x = malloc(100);
-  on_exit(cleanup_free, x);
+  r_on_exit(cleanup_free, x);
 
   int *fd = malloc(1);
-  on_exit(cleanup_free, fd);
+  r_on_exit(cleanup_free, fd);
 
   *fd = open(cfn, O_WRONLY | O_CREAT);
   if (*fd == -1) error("Cannot open file `%s`", cfn);
-  on_exit(cleanup_close, fd);
+  r_on_exit(cleanup_close, fd);
 
   return ScalarInteger(42);
 }
@@ -134,7 +134,7 @@ It is important to point out that the simplified solution:
 
 ```c
 int fd = open(cfn, O_WRONLY | O_CREAT);
-on_exit(cleanup_close, &fd);
+r_on_exit(cleanup_close, &fd);
 ```
 
 (and the corresponding modification of `cleanup_close()`) will not work,

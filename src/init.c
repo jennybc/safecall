@@ -17,5 +17,5 @@ void R_init_safecall(DllInfo *dll) {
   R_registerRoutines(dll, NULL, callMethods, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
   R_forceSymbols(dll, TRUE);
-  R_RegisterCCallable("safecall", "on_exit", (DL_FUNC) on_exit_reg);
+  R_RegisterCCallable("safecall", "r_on_exit", (DL_FUNC) r_on_exit_reg);
 }

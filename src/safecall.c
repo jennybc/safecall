@@ -47,7 +47,7 @@ struct cleanup_data {
 
 static struct cleanup_data *active_cleanup_data = NULL;
 
-void on_exit_reg(void (*func)(void*), void *data) {
+void r_on_exit_reg(void (*func)(void*), void *data) {
   static struct cleanup_data *acd;
   int size;
   int next;
@@ -56,7 +56,7 @@ void on_exit_reg(void (*func)(void*), void *data) {
   if (acd == NULL) {
     /* Need to clean this up..... */
     func(data);
-    error("on_exit must be called from within `safecall()`");
+    error("r_on_exit must be called from within `safecall()`");
   }
   size = acd->size;
   next = acd->next;
