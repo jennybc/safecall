@@ -20,22 +20,30 @@ void cleanup_file(void *data) {
   close(fd);
 }
 
-SEXP testfunc1(SEXP arg1, SEXP arg2) {
+SEXP testfunc1(SEXP fn, SEXP arg2) {
+  const char *cfn = CHAR(STRING_ELT(fn, 0));
   char *x = malloc(100);
+  if (!x) error("Out of memory");
   on_exit(cleanup_free, x);
   int *fd = malloc(1);
+  if (!fd) error("Out of memory");
   on_exit(cleanup_free, fd);
-  *fd = open(CHAR(STRING_ELT(arg1, 0)), O_WRONLY | O_CREAT);
+  *fd = open(cfn, O_WRONLY | O_CREAT);
+  if (*fd == -1) error("Cannot open file `%s`", cfn);
   on_exit(cleanup_file, fd);
   return ScalarInteger(42);
 }
 
-SEXP testfunc2(SEXP arg1, SEXP arg2) {
+SEXP testfunc2(SEXP fn, SEXP arg2) {
+  const char *cfn = CHAR(STRING_ELT(fn, 0));
   char *x = malloc(100);
+  if (!x) error("Out of memory");
   on_exit(cleanup_free, x);
   int *fd = malloc(1);
+  if (!fd) error("Out of memory");
   on_exit(cleanup_free, fd);
-  *fd = open(CHAR(STRING_ELT(arg1, 0)), O_WRONLY | O_CREAT);
+  *fd = open(cfn, O_WRONLY | O_CREAT);
+  if (*fd == -1) error("Cannot open file `%s`", cfn);
   on_exit(cleanup_file, fd);
 
   error("oops");
