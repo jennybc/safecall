@@ -1,5 +1,6 @@
 
-#include "safecall.h"
+#include <R.h>
+#include <Rinternals.h>
 #include <R_ext/Rdynload.h>
 
 typedef struct {
@@ -46,7 +47,7 @@ struct cleanup_data {
 
 static struct cleanup_data *active_cleanup_data = 0;
 
-void on_exit(void (*func)(void*), void *data) {
+void on_exit_reg(void (*func)(void*), void *data) {
   static struct cleanup_data *acd;
   int size;
   int next;

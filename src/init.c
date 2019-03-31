@@ -14,8 +14,11 @@ static const R_CallMethodDef callMethods[]  = {
   { NULL, NULL, 0 }
 };
 
+void on_exit_reg(void (*func)(void*), void *data);
+
 void R_init_safecall(DllInfo *dll) {
   R_registerRoutines(dll, NULL, callMethods, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
   R_forceSymbols(dll, TRUE);
+  R_RegisterCCallable("safecall", "on_exit", (DL_FUNC) on_exit_reg);
 }
